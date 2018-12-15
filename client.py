@@ -1,19 +1,29 @@
 #%%
+import requests
+
+def home():
+    
+    url = "http://127.0.0.1:5000/home/" 
+    
+    response = requests.get(url).json()
+    
+    return response
+
+home()
+#%%
 
 import requests
 
 def add_contact(name,phone):
     
-    url = "http://127.0.0.1:5000/add_contact/" + name + "/" + phone
+    url = "http://127.0.0.1:5000/add_contact/{}/{}".format(name,phone)
     
-    response = requests.get(url)
-    new_contact = response.json()
+    response = requests.put(url).json()
     
-    
-    return new_contact , " Added to phonebook."
+    return response
 
-add_contact("leila","11122")
 
+add_contact("pepe", 109292)
 #%%
 import requests
 
@@ -31,45 +41,28 @@ get_phone("javi")
 #%%
 import requests
 
-def update_phone(name, new_phone):
-    
-    url = "http://127.0.0.1:5000/update_phone/" + name + "/" + new_phone
-    
-    response = requests.get(url)
-    new = response.json()
-    
-    return "New phone of " + name + ": "  +  new
-
-update_phone("yotroz",55555)
-
-#%%
-import requests
-
 def delete_phone(name):
     
-    url = "http://127.0.0.1:5000/delete_phone/" + name 
+    url = "http://127.0.0.1:5000/delete_contact/" + name 
     
-    response = requests.get(url)
-    x = response.json()
+    response = requests.delete(url).json()
     
-    return x
+    return response
 
 delete_phone("david")
 
 #%%
+
 import requests
 
-def home():
+def update_phone(name, new_phone):
     
-    url = "http://127.0.0.1:5000/home/" 
+    url = "http://127.0.0.1:5000/update_phone/" + name + "/" + str(new_phone)
     
-    response = requests.get(url)
-    phonebook = response.json()
+    response = requests.post(url).json()
     
-    return phonebook
+    return response
 
-home()
+update_phone("yotroz",55555)
 
-#%%
-
-    
+#%%     
